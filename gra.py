@@ -107,7 +107,11 @@ def main():
     c = ent(0, 0, 0, 0, 10)
     c2 = ent(500, 500, 0, 0, 10, "blue")
     goal = ent(250, 250, 0, 0, 30, "yellow")
-    ls = []
+    lw = []
+    le = []
+    lv = []
+    le.append(c)
+    le.append(c2)
     win = GraphWin("Update Example", 500, 500, autoflush=False)
     goal.draw(win)
     keDo = False
@@ -118,13 +122,22 @@ def main():
     while (keDo == False):
         cPo = win.checkMouse()
         if cPo != None:
-            ls.append(wallEnt(cPo.getX(), cPo.getY(), 25))
-            ls[len(ls) - 1].c.setFill("purple")
-            ls[len(ls) - 1].draw(win)
+            lw.append(wallEnt(cPo.getX(), cPo.getY(), 25))
+            lw[len(lw) - 1].c.setFill("purple")
+            lw[len(lw) - 1].draw(win)
 
         if win.checkKey() == "q":
             break
+
+    while (True):
+        cPo = win.checkMouse()
+        if (cPo != None):
+            le.append(ent(cPo.getX(), cPo.getY(), 0, 0, 10, col="green"))
+            le[len(le) - 1].draw(win)
+        if win.checkKey() == "q":
+            break
     te.undraw()
+
     for i in range(1000):
         cPo = win.checkMouse()
 
@@ -132,55 +145,67 @@ def main():
             goal.undraw()
             goal = ent(cPo.getX(), cPo.getY(), 0, 0, goal.rad, "yellow")
             goal.draw(win)
-        c.undraw()
-        c2.undraw()
+
 
         # print((1/(c.xco-c2.)**2))
         # print(c.vecTo(c2)[0])
 
-        ve0 = c.vecTo(goal)
-        ve1 = c2.vecTo(goal)
+        for e in le:
+            e.undraw()
+            lv.append(e.vecTo(goal))
+            if (e.bou(goal) == False):
+                e.vx = lv[len(lv) - 1][0] * MR
+                e.vy = lv[len(lv) - 1][0] * MR
+            else:
+                e.vx = 0
+                e.vy = 0
 
-        if c.bou(goal) == False:
+        # if c.bou(goal) == False:
             # print(decRou(c.vx,3),decRou(ve0[0]*5,3),decRou(c.vy,3),decRou(ve0[1]*5,3))
             # print(decRou(c.vx,3)==-1*decRou(ve0[0]*5,3),decRou(c.vy,3)==-1*decRou(ve0[1]*5,3))
-            c.vx = ve0[0] * MR
-            c.vy = ve0[1] * MR
-        else:
-            c.vx = 0
-            c.vy = 0
+        #   c.vx = ve0[0] * MR
+        #   c.vy = ve0[1] * MR
+        # else:
+        #    c.vx = 0
+        #    c.vy = 0
 
-        if c2.bou(goal) == False:
-            c2.vx = ve1[0] * MR
-            c2.vy = ve1[1] * MR
-        else:
-            c2.vx = 0
-            c2.vy = 0
+        # if c2.bou(goal) == False:
+        #    c2.vx = ve1[0] * MR
+        #    c2.vy = ve1[1] * MR
+        # else:
+        #    c2.vx = 0
+        #    c2.vy = 0
+        for e in le:
+            for w in lw:
+                if cheBou(e, w):
+                    if ted == False:
+                        te2.draw(win)
+                        ted = True
+                    e.vx = 0
+                    e.vy = 0
+                    break
+            else:
+                te2.undraw()
 
-        for w in ls:
-            if cheBou(c, w):
-                if ted == False:
-                    te2.draw(win)
-                    ted = True
-                c.vx = 0
-                c.vy = 0
+        ve2 = c.vecTo(c2)
+        ve3 = c2.vecTo(c)
+        # c.vx-=200*ve2[0]*1/c.dist(c2)**2
+        # c.vy-=200*ve2[1]*1/c.dist(c2)**2
+        # c2.vx-=200*ve3[0]*1/c2.dist(c)**2
+        # c2.vy-=200*ve3[1]*1/c2.dist(c)**2
 
-                break
-        else:
-            te2.undraw()
+        # c.move()
+        # c2.move()
 
-        c.move()
-        c2.move()
+        # c2.draw(win)
+        # c.draw(win)
 
-        c2.draw(win)
-        c.draw(win)
-
+        for e in le:
+            e.move()
+            e.draw(win)
         # ve=c.vecTo(c2)
         # ve2=c2.vecTo(c)
-        # c.vx-=200*ve[0]*1/((c2.X()-c.X())**2)
-        # c.vy-=200*ve[0]*(1/(c.X()-c2.X())**2)
-        # c2.vx-=200*ve2[0]*1/((c2.X()-c.X())**2)
-        # c2.vy-=200*ve2[0]*(1/(c.X()-c2.X())**2)
+
 
         update(30)
 
