@@ -138,6 +138,7 @@ def main():
             break
     te.undraw()
 
+
     for i in range(1000):
         cPo = win.checkMouse()
 
@@ -152,10 +153,10 @@ def main():
 
         for e in le:
             e.undraw()
-            lv.append(e.vecTo(goal))
+            v = e.vecTo(goal)
             if (e.bou(goal) == False):
-                e.vx = lv[len(lv) - 1][0] * MR
-                e.vy = lv[len(lv) - 1][0] * MR
+                e.vx = v[0] * MR
+                e.vy = v[1] * MR
             else:
                 e.vx = 0
                 e.vy = 0
@@ -165,14 +166,14 @@ def main():
             # print(decRou(c.vx,3)==-1*decRou(ve0[0]*5,3),decRou(c.vy,3)==-1*decRou(ve0[1]*5,3))
         #   c.vx = ve0[0] * MR
         #   c.vy = ve0[1] * MR
-        # else:
+        #else:
         #    c.vx = 0
         #    c.vy = 0
 
-        # if c2.bou(goal) == False:
+        #if c2.bou(goal) == False:
         #    c2.vx = ve1[0] * MR
         #    c2.vy = ve1[1] * MR
-        # else:
+        #else:
         #    c2.vx = 0
         #    c2.vy = 0
         for e in le:
@@ -198,7 +199,7 @@ def main():
         # c2.move()
 
         # c2.draw(win)
-        # c.draw(win)
+        #c.draw(win)
 
         for e in le:
             e.move()

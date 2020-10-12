@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="92cdfd94-e536-4a01-8a33-c5bce3ab4d0d" name="Default Changelist" comment="ped flow">
+    <list default="true" id="92cdfd94-e536-4a01-8a33-c5bce3ab4d0d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gra.py" beforeDir="false" afterPath="$PROJECT_DIR$/gra.py" afterDir="false" />
     </list>
@@ -16,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/gra.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="181">
-              <caret line="140" lean-forward="true" selection-start-line="12" selection-start-column="19" selection-end-line="12" selection-end-column="21" />
+            <state relative-caret-position="203">
+              <caret line="187" column="25" lean-forward="true" selection-start-line="187" selection-start-column="25" selection-end-line="187" selection-end-column="25" />
               <folding>
                 <element signature="e#0#22#0" expanded="true" />
               </folding>
@@ -49,8 +49,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/webstuffmaybe/grap/Lib/site-packages/graphics/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="10965">
-              <caret line="645" column="17" selection-start-line="645" selection-start-column="17" selection-end-line="645" selection-end-column="17" />
+            <state relative-caret-position="438">
+              <caret line="480" selection-start-line="480" selection-end-line="480" />
             </state>
           </provider>
         </entry>
@@ -121,6 +121,7 @@
       <find>ls</find>
       <find>ls</find>
       <find>c.</find>
+      <find>.draw(win</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -285,7 +286,14 @@
       <option name="project" value="LOCAL" />
       <updated>1601861766103</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="ped flow">
+      <created>1602457709908</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1602457709908</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -334,16 +342,6 @@
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$USER_HOME$/AppData/Local/Temp/hw.py" />
-    <entry file="file://$PROJECT_DIR$/gra.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="140" lean-forward="true" selection-start-line="12" selection-start-column="19" selection-end-line="12" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#22#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/hw3.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -358,13 +356,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4080">
           <caret line="243" selection-start-line="243" selection-end-line="243" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/webstuffmaybe/grap/Lib/site-packages/graphics/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10965">
-          <caret line="645" column="17" selection-start-line="645" selection-start-column="17" selection-end-line="645" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -401,6 +392,23 @@
           <caret selection-end-line="27" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/webstuffmaybe/grap/Lib/site-packages/graphics/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="438">
+          <caret line="480" selection-start-line="480" selection-end-line="480" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gra.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="187" column="25" lean-forward="true" selection-start-line="187" selection-start-column="25" selection-end-line="187" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#22#0" expanded="true" />
           </folding>
         </state>
       </provider>
