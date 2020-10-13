@@ -74,6 +74,15 @@ class ent:
     def nDist(self, other):
         return math.sqrt((self.X() + self.vx - other.X()) ** 2 + (self.Y() + self.vy - other.Y()) ** 2)
 
+    def eq(self, other):
+        return self is other
+
+    def starVec(self, goal, cost):
+        return 0;
+
+    def bug(self, wall):
+        ra = wall.rad
+
     # Finds the best path from one ent to another
     def vecTo(self, other):
         vex = other.X() - self.X()
@@ -101,6 +110,21 @@ def cheBou(ent, cWall):
     return False
 
 
+def cheBouArr(ent, arrCWall):
+    for cWall in arrCWall:
+        if cheBou(ent, cWall):
+            return False
+    return True
+
+
+def Rot(vec, deg):
+    deg = deg * (math.pi / 180)
+    x, y = vec
+    v = [0, 0]
+    v[0] = x * math.cos(deg) - y * math.sin(deg);
+    v[1] = x * math.sin(deg) + y * math.cos(deg);
+    return v;
+
 def main():
     # c=Circle(Point(10,10),5)
 
@@ -116,6 +140,8 @@ def main():
     goal.draw(win)
     keDo = False
     te = Text(Point(400, 400), "Press q to start")
+    te1 = Text(Point(400, 400), "Press q to start (again)")
+
     te2 = Text(Point(400, 400), "Crash!")
     te.draw(win)
     ted = False
@@ -128,6 +154,8 @@ def main():
 
         if win.checkKey() == "q":
             break
+    te.undraw()
+    te1.draw(win)
 
     while (True):
         cPo = win.checkMouse()
@@ -136,10 +164,9 @@ def main():
             le[len(le) - 1].draw(win)
         if win.checkKey() == "q":
             break
-    te.undraw()
+    te1.undraw()
 
-
-    for i in range(1000):
+    for i in range(8000):
         cPo = win.checkMouse()
 
         if (cPo != None):
@@ -157,6 +184,19 @@ def main():
             if (e.bou(goal) == False):
                 e.vx = v[0] * MR
                 e.vy = v[1] * MR
+                for e2 in le:
+                    if e is e2:
+                        continue
+                    dis = e.dist(e2)
+                    if (dis > 250 or dis == 0):
+                        continue
+                    ve = e.vecTo(e2)
+                    # ve1=e2.vecTo(e)
+
+                    e.vx -= 200 * ve[0] * 1 / dis ** 2
+                    e.vy -= 200 * ve[1] * 1 / dis ** 2
+                    e2.vx -= 200 * -ve[0] * 1 / dis ** 2
+                    e2.vy -= 200 * -ve[1] * 1 / dis ** 2
             else:
                 e.vx = 0
                 e.vy = 0
@@ -176,17 +216,14 @@ def main():
         #else:
         #    c2.vx = 0
         #    c2.vy = 0
+
         for e in le:
-            for w in lw:
-                if cheBou(e, w):
-                    if ted == False:
-                        te2.draw(win)
-                        ted = True
-                    e.vx = 0
-                    e.vy = 0
-                    break
-            else:
-                te2.undraw()
+            while (cheBouArr(e, lw) == False):
+                lsp = [e.vx, e.vy]
+                v15 = Rot(lsp, 15)
+                print(v15)
+                e.vx = v15[0]
+                e.vy = v15[1]
 
         ve2 = c.vecTo(c2)
         ve3 = c2.vecTo(c)
@@ -203,9 +240,17 @@ def main():
 
         for e in le:
             e.move()
-            e.draw(win)
+            if (e.dist(goal) > goal.rad):
+                e.draw(win)
+                continue
+            else:
+                le[:] = [e2 for e2 in le if not e2.eq(e)]
+                print(len(le))
         # ve=c.vecTo(c2)
         # ve2=c2.vecTo(c)
+        if (len(le) == 0):
+            print("Done!")
+            break
 
 
         update(30)
