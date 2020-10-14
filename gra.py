@@ -16,12 +16,23 @@ def decRou(x, place):
     return int((x * num)) / num
 
 
+def mag(vec):
+    return math.sqrt(vec[0] ** 2 + vec[1] ** 2)
+
+
+def chaMag(vec, nMag):
+    m = mag(vec)
+    vec[0] = vec[0] * nMag / m
+    vec[1] = vec[1] * nMag / m
+    return vec
+
 class wallEnt:
     def __init__(self, x, y, r, col="red"):
         self.c = Circle(Point(x, y), r)
         self.c.setOutline("white")
         self.c.setFill("")
         self.radius = r
+
 
     def X(self):
         return self.c.getCenter().getX()
@@ -80,6 +91,19 @@ class ent:
     def eq(self, other):
         return self is other
 
+    def repulsion(self, other):
+        A = 15
+        B = 25
+        ve = self.vecTo(other)
+        r = self.rad + other.rad
+        d = self.dist(other)
+        res = A * math.exp((r - d) / B)
+        # print(res)
+        ve[0] = res * ve[0]
+        ve[1] = res * ve[1]
+        return ve
+
+
 
 
     # Finds the best path from one ent to another
@@ -92,7 +116,7 @@ class ent:
         if (mag != 0):
             vex = vex / mag
             vey = vey / mag
-        return (vex, vey)
+        return [vex, vey]
 
     # There's a weird error to the pathing right now where it "bounces" when it gets to a goal point: this stops that
     def bou(self, goal):
@@ -129,15 +153,35 @@ def Rot(vec, deg):
 def main():
     # c=Circle(Point(10,10),5)
 
-    c = ent(0, 0, 0, 0, 10)
-    c2 = ent(0, 20, 0, 0, 10, "blue")
+    c = ent(0, 100, 0, 0, 10)
+    c2 = ent(0, 120, 0, 0, 10, "blue")
+    w = wallEnt(470, 220, 10)
+    w2 = wallEnt(480, 210, 10)
+    w3 = wallEnt(490, 200, 10)
+    w4 = wallEnt(470, 280, 10)
+    w5 = wallEnt(480, 290, 10)
+    w6 = wallEnt(490, 300, 10)
+    w7 = wallEnt(500, 190, 10)
+    w8 = wallEnt(500, 310, 10)
+
     goal = ent(500, 250, 0, 0, 30, "yellow")
     lw = []
+    lw.append(w)
+    lw.append(w2)
+    lw.append(w3)
+    lw.append(w4)
+    lw.append(w5)
+    lw.append(w6)
+    lw.append(w7)
+    lw.append(w8)
     le = []
     le.append(c)
     le.append(c2)
     win = GraphWin("Update Example", 500, 500, autoflush=False)
     goal.draw(win)
+    for w0 in lw:
+        w0.c.setFill("purple")
+        w0.draw(win)
     keDo = False
     te = Text(Point(400, 400), "Press q to start")
     te1 = Text(Point(400, 400), "Press q to start (again)")
@@ -179,23 +223,23 @@ def main():
 
         for e in le:
             e.undraw()
-            v = e.vecTo(goal)
+            v = chaMag(e.vecTo(goal), 5)
             if (e.bou(goal) == False):
-                e.vx = v[0] * MR
-                e.vy = v[1] * MR
-                for e2 in le:
-                    if e is e2:
-                        continue
-                    dis = e.dist(e2)
-                    if (dis > 250 or dis == 0):
-                        continue
-                    ve = e.vecTo(e2)
 
-                    e.vx -= 200 * ve[0] * 1 / dis ** 2
-                    e.vy -= 200 * ve[1] * 1 / dis ** 2
-                    e2.vx -= 200 * -ve[0] * 1 / dis ** 2
-                    e2.vy -= 200 * -ve[1] * 1 / dis ** 2
+                for e2 in le:
+                    dis = e.dist(e2)
+                    if (dis > 250 or dis == 0 or e.eq(e2)):
+                        e.vx += (v[0] - e.vx) * .333
+                        e.vy += (v[1] - e.vy) * .333
+                        continue
+
+                    rep = e.repulsion(e2)
+                    e.vx += (v[0] - e.vx) * .333
+                    e.vy += (v[1] - e.vy) * .333
+                    e.vx -= rep[0] * .25
+                    e.vy -= rep[1] * .25
             else:
+
                 e.vx = 0
                 e.vy = 0
 
@@ -203,7 +247,6 @@ def main():
             while (cheBouArr(e, lw) == False):
                 lsp = [e.vx, e.vy]
                 v15 = Rot(lsp, 15)
-                print(v15)
                 e.vx = v15[0]
                 e.vy = v15[1]
 
@@ -217,7 +260,6 @@ def main():
                 print(len(le))
 
         if (len(le) == 0):
-            print("Done!")
             print(time.time() - staTim)
             break
 
