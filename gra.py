@@ -129,8 +129,8 @@ def main():
     # c=Circle(Point(10,10),5)
 
     c = ent(0, 0, 0, 0, 10)
-    c2 = ent(500, 500, 0, 0, 10, "blue")
-    goal = ent(250, 250, 0, 0, 30, "yellow")
+    c2 = ent(0, 20, 0, 0, 10, "blue")
+    goal = ent(500, 250, 0, 0, 30, "yellow")
     lw = []
     le = []
     lv = []
@@ -148,7 +148,7 @@ def main():
     while (keDo == False):
         cPo = win.checkMouse()
         if cPo != None:
-            lw.append(wallEnt(cPo.getX(), cPo.getY(), 25))
+            lw.append(wallEnt(cPo.getX(), cPo.getY(), 10))
             lw[len(lw) - 1].c.setFill("purple")
             lw[len(lw) - 1].draw(win)
 
@@ -165,6 +165,8 @@ def main():
         if win.checkKey() == "q":
             break
     te1.undraw()
+
+    staTim = time.time()
 
     for i in range(8000):
         cPo = win.checkMouse()
@@ -250,6 +252,7 @@ def main():
         # ve2=c2.vecTo(c)
         if (len(le) == 0):
             print("Done!")
+            print(time.time() - staTim)
             break
 
 
