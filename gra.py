@@ -1,6 +1,7 @@
 from graphics import *
 import time
 import math
+import random
 
 MR = 5
 
@@ -215,7 +216,7 @@ def main():
 
     staTim = time.time()
 
-    for i in range(8000):
+    for i in range(10000):
         cPo = win.checkMouse()
 
         if (cPo != None):
@@ -226,7 +227,7 @@ def main():
 
         for e in le:
             e.undraw()
-            v = chaMag(e.vecTo(goal), 5)
+            v = chaMag(e.vecTo(goal), MR)
             if (e.bou(goal) == False):
 
                 for e2 in le:
@@ -239,8 +240,14 @@ def main():
                     rep = e.repulsion(e2)
                     e.vx += (v[0] - e.vx) * .333
                     e.vy += (v[1] - e.vy) * .333
+                    if (mag(rep) > MR * 20):
+                        chaMag(rep, MR * 20)
                     e.vx -= rep[0]
                     e.vy -= rep[1]
+
+                    e.vx += random.randrange(-1, 1) * .5
+                    e.vy += random.randrange(-1, 1) * .5
+
             else:
 
                 e.vx = 0
@@ -253,6 +260,7 @@ def main():
                 e.vx = v15[0]
                 e.vy = v15[1]
 
+
         for e in le:
             e.move()
             if (e.dist(goal) > goal.rad):
@@ -260,7 +268,7 @@ def main():
                 continue
             else:
                 le[:] = [e2 for e2 in le if not e2.eq(e)]
-                print(len(le))
+                # print(len(le))
 
         if (len(le) == 0):
             print(time.time() - staTim)
