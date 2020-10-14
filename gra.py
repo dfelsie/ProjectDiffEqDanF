@@ -187,8 +187,8 @@ def main():
         w0.c.setFill("purple")
         w0.draw(win)
     keDo = False
-    te = Text(Point(400, 400), "Press q to start")
-    te1 = Text(Point(400, 400), "Press q to start (again)")
+    te = Text(Point(400, 400), "Click to place wall")
+    te1 = Text(Point(400, 400), "Click to place person")
 
     te2 = Text(Point(400, 400), "Crash!")
     te.draw(win)
