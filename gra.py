@@ -92,8 +92,8 @@ class ent:
         return self is other
 
     def repulsion(self, other):
-        A = 15
-        B = 25
+        A = 10
+        B = 2.5
         ve = self.vecTo(other)
         r = self.rad + other.rad
         d = self.dist(other)
@@ -163,7 +163,8 @@ def main():
     w6 = wallEnt(490, 300, 10)
     w7 = wallEnt(500, 190, 10)
     w8 = wallEnt(500, 310, 10)
-
+    w9 = wallEnt(460, 230, 10)
+    w10 = wallEnt(460, 270, 10)
     goal = ent(500, 250, 0, 0, 30, "yellow")
     lw = []
     lw.append(w)
@@ -174,6 +175,8 @@ def main():
     lw.append(w6)
     lw.append(w7)
     lw.append(w8)
+    lw.append(w9)
+    lw.append(w10)
     le = []
     le.append(c)
     le.append(c2)
@@ -236,8 +239,8 @@ def main():
                     rep = e.repulsion(e2)
                     e.vx += (v[0] - e.vx) * .333
                     e.vy += (v[1] - e.vy) * .333
-                    e.vx -= rep[0] * .25
-                    e.vy -= rep[1] * .25
+                    e.vx -= rep[0]
+                    e.vy -= rep[1]
             else:
 
                 e.vx = 0
