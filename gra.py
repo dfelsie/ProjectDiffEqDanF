@@ -9,6 +9,8 @@ MR = 5
 # P1 is the upper left point
 # P2 is the lower right
 
+
+# For rounding, but I didn't use this
 def decRou(x, place):
     num = 10 ** place
     return int((x * num)) / num
@@ -71,17 +73,14 @@ class ent:
     def dist(self, other):
         return math.sqrt((self.X() - other.X()) ** 2 + (self.Y() - other.Y()) ** 2)
 
+    #Obviously, like above, but with current v added
     def nDist(self, other):
         return math.sqrt((self.X() + self.vx - other.X()) ** 2 + (self.Y() + self.vy - other.Y()) ** 2)
 
     def eq(self, other):
         return self is other
 
-    def starVec(self, goal, cost):
-        return 0;
 
-    def bug(self, wall):
-        ra = wall.rad
 
     # Finds the best path from one ent to another
     def vecTo(self, other):
@@ -110,6 +109,7 @@ def cheBou(ent, cWall):
     return False
 
 
+#ibid, but for an array of walls
 def cheBouArr(ent, arrCWall):
     for cWall in arrCWall:
         if cheBou(ent, cWall):
@@ -117,6 +117,7 @@ def cheBouArr(ent, arrCWall):
     return True
 
 
+#Rotates a vector by the degrees given
 def Rot(vec, deg):
     deg = deg * (math.pi / 180)
     x, y = vec
@@ -133,7 +134,6 @@ def main():
     goal = ent(500, 250, 0, 0, 30, "yellow")
     lw = []
     le = []
-    lv = []
     le.append(c)
     le.append(c2)
     win = GraphWin("Update Example", 500, 500, autoflush=False)
@@ -177,9 +177,6 @@ def main():
             goal.draw(win)
 
 
-        # print((1/(c.xco-c2.)**2))
-        # print(c.vecTo(c2)[0])
-
         for e in le:
             e.undraw()
             v = e.vecTo(goal)
@@ -193,7 +190,6 @@ def main():
                     if (dis > 250 or dis == 0):
                         continue
                     ve = e.vecTo(e2)
-                    # ve1=e2.vecTo(e)
 
                     e.vx -= 200 * ve[0] * 1 / dis ** 2
                     e.vy -= 200 * ve[1] * 1 / dis ** 2
@@ -203,22 +199,6 @@ def main():
                 e.vx = 0
                 e.vy = 0
 
-        # if c.bou(goal) == False:
-            # print(decRou(c.vx,3),decRou(ve0[0]*5,3),decRou(c.vy,3),decRou(ve0[1]*5,3))
-            # print(decRou(c.vx,3)==-1*decRou(ve0[0]*5,3),decRou(c.vy,3)==-1*decRou(ve0[1]*5,3))
-        #   c.vx = ve0[0] * MR
-        #   c.vy = ve0[1] * MR
-        #else:
-        #    c.vx = 0
-        #    c.vy = 0
-
-        #if c2.bou(goal) == False:
-        #    c2.vx = ve1[0] * MR
-        #    c2.vy = ve1[1] * MR
-        #else:
-        #    c2.vx = 0
-        #    c2.vy = 0
-
         for e in le:
             while (cheBouArr(e, lw) == False):
                 lsp = [e.vx, e.vy]
@@ -226,19 +206,6 @@ def main():
                 print(v15)
                 e.vx = v15[0]
                 e.vy = v15[1]
-
-        ve2 = c.vecTo(c2)
-        ve3 = c2.vecTo(c)
-        # c.vx-=200*ve2[0]*1/c.dist(c2)**2
-        # c.vy-=200*ve2[1]*1/c.dist(c2)**2
-        # c2.vx-=200*ve3[0]*1/c2.dist(c)**2
-        # c2.vy-=200*ve3[1]*1/c2.dist(c)**2
-
-        # c.move()
-        # c2.move()
-
-        # c2.draw(win)
-        #c.draw(win)
 
         for e in le:
             e.move()
@@ -248,8 +215,7 @@ def main():
             else:
                 le[:] = [e2 for e2 in le if not e2.eq(e)]
                 print(len(le))
-        # ve=c.vecTo(c2)
-        # ve2=c2.vecTo(c)
+
         if (len(le) == 0):
             print("Done!")
             print(time.time() - staTim)
